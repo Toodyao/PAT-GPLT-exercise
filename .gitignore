@@ -1,2 +1,5 @@
 # Ignore pictures:
 *.png
+
+# Ignore exe:
+*.exe
