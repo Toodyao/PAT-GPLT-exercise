@@ -1,3 +1,4 @@
+// always use find(x) instead of par[x]
 #include <iostream>
 #include <cstdio>
 #include <set>
@@ -6,7 +7,6 @@
 using namespace std;
 
 int par[10010];
-int set_rank[10010];
 int member_num[10010];
 int house_num[10010];
 int area_num[10010];
@@ -35,7 +35,6 @@ void init(int n)
 	for (int i = 0; i < n; i++)
 	{
 		par[i] = i;
-		set_rank[i] = 0;
 		member_num[i] = 1;
 		house_num[i] = 0;
 		area_num[i] = 0;
@@ -57,14 +56,14 @@ void unite(int x, int y)
 	if (x == y)
 		return;
 
-	if (x > y)
+	if (x > y) // let min_num become the root(parent)
 	{
 		par[x] = y;
 		member_num[y] += member_num[x];
 		house_num[y] += house_num[x];
 		area_num[y] += area_num[x];
 	}
-	else
+	else if (x < y)
 	{
 		par[y] = x;
 		member_num[x] += member_num[y];
@@ -80,7 +79,7 @@ bool same(int x, int y)
 
 int main()
 {
-	freopen("input.txt", "r", stdin);
+	// freopen("input.txt", "r", stdin);
 	int n;
 	cin >> n;
 
@@ -102,8 +101,8 @@ int main()
 		}
 		int house, area;
 		cin >> house >> area;
-		house_num[par[number]] += house;
-		area_num[par[number]] += area;
+		house_num[find(number)] += house; // always use find(x) instead of par[x]
+		area_num[find(number)] += area;
 	}
 	set<int> s;
 	for (int i = 0; i < v.size(); i++)
