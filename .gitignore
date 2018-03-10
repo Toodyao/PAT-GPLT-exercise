@@ -3,3 +3,6 @@
 
 # Ignore exe:
 *.exe
+
+# Ignore VSCode files
+.vscode/
